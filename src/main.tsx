@@ -4,15 +4,24 @@ import ReactDOM from "react-dom/client";
 import Home from "./pages/App";
 import Matches from "./pages/Matches";
 import "./index.css";
+import Root from "./layout/Root";
+import { loaderMatches } from "./utils/matches.loader";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/matches",
-    element: <Matches />,
+    element: <Root />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "matches/:income",
+        element: <Matches />,
+        loader: loaderMatches,
+      },
+    ],
   },
 ]);
 

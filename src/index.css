@@ -7,5 +7,16 @@ body,
 #root {
   height: 100%;
   width: 100%;
-  @apply bg-white;
+  @apply bg-white font-helvetica;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label {
+  @apply text-woodrush;
 }

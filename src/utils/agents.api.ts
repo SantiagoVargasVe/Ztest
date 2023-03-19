@@ -7,38 +7,21 @@ export const getAgentsByIncome = async (income: number) => {
 
   const agents = await getAgents();
 
-  const candidates: Agent[] = [];
-  for (let index = 0; index < agents.length; index++) {
-    const agent = agents[index];
+  sortAgents(agents, income);
 
-    if (agent.income <= maxIncome && agent.income >= minIncome) {
-      const agentDifference = Math.abs(agent.income - income);
-      //   if (candidates.length < 3) {
-      // }
-      candidates.push(agent);
-      //   else {
-      //     for (
-      //       let candidatesIndex = 0;
-      //       candidatesIndex < candidates.length;
-      //       candidatesIndex++
-      //     ) {
-      //       const actualCandidate = candidates[candidatesIndex];
-      //       const actualCantidateDifference = Math.abs(
-      //         actualCandidate.income - income
-      //       );
+  return agents;
+};
 
-      //       if (actualCantidateDifference > agentDifference) {
-      //         candidates[candidates.indexOf(actualCandidate)] = agent;
-      //       }
-      //     }
-      //   }
-    }
-  }
-  return candidates;
+const sortAgents = (agents: Agent[], income: number) => {
+  agents.sort((a: Agent, b: Agent) => {
+    const closenessA = Math.abs(a.income - income);
+    const closenessB = Math.abs(b.income - income);
+    return closenessA - closenessB;
+  });
 };
 
 const getAgents = () => {
-  return fetch("http://localhost:3200/agents").then((value: Response) =>
-    value.json().then((data: Agent[]) => data)
+  return fetch(import.meta.env.VITE_URL).then((value: Response) =>
+    value.json().then((data: { agents: Agent[] }) => data.agents)
   );
 };
