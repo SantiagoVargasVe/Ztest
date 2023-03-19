@@ -1,5 +1,7 @@
 # How to run the project
 
+In case you want to test another agents, you must change the content and of the json in the public folder, and keep the same structure
+
 1. Download the repository
 
 ```bash
